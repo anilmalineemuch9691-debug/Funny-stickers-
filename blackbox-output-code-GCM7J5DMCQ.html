@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StickerLab - Create Funny Stickers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="cursor-glow"></div>
+    
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-layer-group"></i>
+            <span>StickerLab</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#" class="active">Create</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#templates">Templates</a>
+        </nav>
+        <button class="btn-primary" id="exportBtn">
+            <i class="fas fa-download"></i>
+            Export
+        </button>
+    </header>
+
+    <main class="main-container">
+        <!-- Tools Panel -->
+        <aside class="tools-panel">
+            <div class="tool-section">
+                <h3>Tools</h3>
+                <div class="tool-buttons">
+                    <button class="tool-btn active" data-tool="select" title="Select">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </button>
+                    <button class="tool-btn" data-tool="text" title="Add Text">
+                        <i class="fas fa-font"></i>
+                    </button>
+                    <button class="tool-btn" data-tool="draw" title="Draw">
+                        <i class="fas fa-pen"></i>
+                    </button>
+                    <button class="tool-btn" data-tool="emoji" title="Add Emoji">
+                        <i class="fas fa-smile"></i>
+                    </button>
+                    <button class="tool-btn" data-tool="shapes" title="Shapes">
+                        <i class="fas fa-shapes"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>Sticker Style</h3>
+                <div class="style-options">
+                    <div class="style-option">
+                        <label>Border Radius</label>
+                        <input type="range" id="borderRadius" min="0" max="100" value="50">
+                    </div>
+                    <div class="style-option">
+                        <label>Border Width</label>
+                        <input type="range" id="borderWidth" min="0" max="20" value="4">
+                    </div>
+                    <div class="style-option">
+                        <label>Shadow</label>
+                        <input type="range" id="shadowBlur" min="0" max="50" value="20">
+                    </div>
+                    <div class="style-option">
+                        <label>Shadow Color</label>
+                        <input type="color" id="shadowColor" value="#000000">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-section" id="textOptions" style="display: none;">
+                <h3>Text Options</h3>
+                <div class="text-controls">
+                    <input type="text" id="textInput" placeholder="Type something funny...">
+                    <div class="font-selector">
+                        <select id="fontFamily">
+                            <option value="Poppins">Poppins</option>
+                            <option value="Comic Sans MS">Comic Sans</option>
+                            <option value="Impact">Impact</option>
+                            <option value="Arial Black">Arial Black</option>
+                        </select>
+                    </div>
+                    <div class="font-size-control">
+                        <input type="range" id="fontSize" min="12" max="72" value="24">
+                    </div>
+                    <div class="color-picker">
+                        <input type="color" id="textColor" value="#ffffff">
+                    </div>
+                    <div class="text-align">
+                        <button class="align-btn active" data-align="center">
+                            <i class="fas fa-align-center"></i>
+                        </button>
+                        <button class="align-btn" data-align="left">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+                        <button class="align-btn" data-align="right">
+                            <i class="fas fa-align-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-section" id="emojiPanel" style="display: none;">
+                <h3>Fun Emojis</h3>
+                <div class="emoji-grid">
+                    <span class="emoji" data-emoji="😂">😂</span>
+                    <span class="emoji" data-emoji="🤣">🤣</span>
+                    <span class="emoji" data-emoji="😜">😜</span>
+                    <span class="emoji" data-emoji="🤪">🤪</span>
+                    <span class="emoji" data-emoji="😝">😝</span>
+                    <span class="emoji" data-emoji="🤭">🤭</span>
+                    <span class="emoji" data-emoji="😆">😆</span>
+                    <span class="emoji" data-emoji="🥴">🥴</span>
+                    <span class="emoji" data-emoji="😛">😛</span>
+                    <span class="emoji" data-emoji="🤔">🤔</span>
+                    <span class="emoji" data-emoji="🤡">🤡</span>
+                    <span class="emoji" data-emoji="👻">👻</span>
+                    <span class="emoji" data-emoji="💀">💀</span>
+                    <span class="emoji" data-emoji="🔥">🔥</span>
+                    <span class="emoji" data-emoji="✨">✨</span>
+                    <span class="emoji" data-emoji="🌈">🌈</span>
+                    <span class="emoji" data-emoji="💩">💩</span>
+                    <span class="emoji" data-emoji="🍆">🍆</span>
+                    <span class="emoji" data-emoji="🍑">🍑</span>
+                    <span class="emoji" data-emoji="👀">👀</span>
+                </div>
+            </div>
+
+            <div class="tool-section" id="shapesPanel" style="display: none;">
+                <h3>Shapes</h3>
+                <div class="shape-grid">
+                    <button class="shape-btn" data-shape="circle">
+                        <i class="fas fa-circle"></i>
+                    </button>
+                    <button class="shape-btn" data-shape="rectangle">
+                        <i class="fas fa-square"></i>
+                    </button>
+                    <button class="shape-btn" data-shape="triangle">
+                        <i class="fas fa-play" style="transform: rotate(-90deg);"></i>
+                    </button>
+                    <button class="shape-btn" data-shape="star">
+                        <i class="fas fa-star"></i>
+                    </button>
+                    <button class="shape-btn" data-shape="heart">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <button class="shape-btn" data-shape="cloud">
+                        <i class="fas fa-cloud"></i>
+                    </button>
+                </div>
+                <div class="shape-color">
+                    <label>Fill Color</label>
+                    <input type="color" id="shapeColor" value="#ff6b6b">
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>Background</h3>
+                <div class="bg-options">
+                    <button class="bg-btn active" data-bg="transparent">
+                        <i class="fas fa-ban"></i>
+                    </button>
+                    <button class="bg-btn" data-bg="gradient-1">
+                        <span class="gradient-preview gradient-1"></span>
+                    </button>
+                    <button class="bg-btn" data-bg="gradient-2">
+                        <span class="gradient-preview gradient-2"></span>
+                    </button>
+                    <button class="bg-btn" data-bg="gradient-3">
+                        <span class="gradient-preview gradient-3"></span>
+                    </button>
+                    <button class="bg-btn" data-bg="solid">
+                        <input type="color" id="bgColor" value="#f8f9fa">
+                    </button>
+                </div>
+            </div>
+
+            <div class="tool-section actions">
+                <button class="btn-action" id="clearBtn">
+                    <i class="fas fa-trash"></i>
+                    Clear All
+                </button>
+                <button class="btn-action" id="undoBtn">
+                    <i class="fas fa-undo"></i>
+                    Undo
+                </button>
+                <button class="btn-action" id="deleteBtn">
+                    <i class="fas fa-backspace"></i>
+                    Delete Selected
+                </button>
+            </div>
+        </aside>
+
+        <!-- Canvas Area -->
+        <section class="canvas-area">
+            <div class="canvas-container">
+                <canvas id="stickerCanvas"></canvas>
+                <div class="canvas-overlay" id="canvasOverlay">
+                    <p>Click to add elements or use the tools panel</p>
+                </div>
+            </div>
+            <div class="canvas-info">
+                <span id="canvasSize">512 × 512</span>
+                <span class="separator">|</span>
+                <span id="elementCount">0 elements</span>
+            </div>
+        </section>
+
+        <!-- Properties Panel -->
+        <aside class="properties-panel">
+            <div class="properties-header">
+                <h3>Properties</h3>
+                <button class="close-btn" id="closeProperties">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="properties-content" id="propertiesContent">
+                <p class="no-selection">Select an element to edit its properties</p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <h2>Your Stickers</h2>
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Stickers will be added here -->
+        </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section class="templates-section" id="templates">
+        <h2>Funny Templates</h2>
+        <div class="templates-grid">
+            <div class="template-card" data-template="meme-face">
+                <div class="template-preview meme-face-preview"></div>
+                <span>Meme Face</span>
+            </div>
+            <div class="template-card" data-template="spongebob">
+                <div class="template-preview spongebob-preview"></div>
+                <span>Excited SpongeBob</span>
+            </div>
+            <div class="template-card" data-template="cat">
+                <div class="template-preview cat-preview"></div>
+                <span>Chill Cat</span>
+            </div>
+            <div class="template-card" data-template="dog">
+                <div class="template-preview dog-preview"></div>
+                <span>Happy Dog</span>
+            </div>
+            <div class="template-card" data-template="poop">
+                <div class="template-preview poop-preview"></div>
+                <span>Poop Emoji</span>
+            </div>
+            <div class="template-card" data-template="think">
+                <div class="template-preview think-preview"></div>
+                <span>Thinking</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with <i class="fas fa-heart"></i> for sticker lovers</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+        </div>
+    </footer>
+
+    <!-- Export Modal -->
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export Sticker</h3>
+                <button class="close-btn" id="closeExportModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="export-preview">
+                    <img id="exportPreview" src="" alt="Export Preview">
+                </div>
+                <div class="export-options">
+                    <div class="export-option">
+                        <label>Format</label>
+                        <select id="exportFormat">
+                            <option value="png">PNG (Transparent)</option>
+                            <option value="jpeg">JPEG (White Background)</option>
+                        </select>
+                    </div>
+                    <div class="export-option">
+                        <label>Size</label>
+                        <select id="exportSize">
+                            <option value="512">512px</option>
+                            <option value="1024">1024px</option>
+                            <option value="2048">2048px</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary btn-full" id="downloadBtn">
+                    <i class="fas fa-download"></i>
+                    Download Sticker
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
